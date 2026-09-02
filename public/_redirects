@@ -1,0 +1,4 @@
+# O Sanity Studio e uma aplicacao de pagina unica: o roteamento acontece no
+# navegador. Sem esta regra, recarregar ou abrir direto um endereco interno
+# (ex.: /studio/structure/post) devolveria 404 no GitLab Pages.
+/studio/* /studio/index.html 200

@@ -1,0 +1,25 @@
+# dependencias
+node_modules/
+.pnp
+.pnp.js
+
+# build
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# ambiente (nunca comitar tokens)
+.env
+.env.local
+.env*.local
+
+# backups de dataset gerados localmente
+backups/
+*.tar.gz
+
+# sistema
+.DS_Store
+*.log
+npm-debug.log*
+.vercel

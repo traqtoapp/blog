@@ -1,0 +1,86 @@
+# ---------------------------------------------------------------------------
+# Pipeline do blog do Traqto
+#
+#   * publicar no Sanity  -> webhook -> trigger  -> job `pages`  -> site no ar
+#   * push na branch principal                   -> job `pages`  -> site no ar
+#   * agendamento mensal                         -> job `backup` -> .tar.gz do conteudo
+#
+# Tudo roda no plano gratuito do GitLab, que permite uso comercial.
+# ---------------------------------------------------------------------------
+
+default:
+  image: node:22-bookworm-slim
+  interruptible: true
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - .npm/
+
+variables:
+  # `npm ci` reproduz exatamente o package-lock.json — build identico toda vez.
+  NPM_CONFIG_CACHE: '$CI_PROJECT_DIR/.npm'
+  NPM_CONFIG_FUND: 'false'
+  NPM_CONFIG_AUDIT: 'false'
+  GIT_DEPTH: '1'
+
+stages:
+  - verificar
+  - publicar
+  - backup
+
+# --- Verificacao em branches e merge requests -------------------------------
+# Nao publica nada: so garante que o build passa antes de chegar na principal.
+verificar:
+  stage: verificar
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH && $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+  script:
+    - npm ci
+    - npm run typecheck
+    - npm run build
+
+# --- Build + publicacao no GitLab Pages -------------------------------------
+# Roda em: push na branch principal, "Run pipeline" manual e trigger do webhook
+# do Sanity (CI_PIPELINE_SOURCE == "trigger").
+pages:
+  stage: publicar
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  script:
+    - npm ci
+    - npm run build
+    # O GitLab Pages publica o conteudo do diretorio `public/`. O `public/` do
+    # repositorio (arquivos estaticos do Next) ja foi copiado para dentro de
+    # `out/` durante o build, entao aqui ele so da lugar ao site pronto.
+    - rm -rf public
+    - mv out public
+  artifacts:
+    paths:
+      - public
+    expire_in: 1 week
+  environment:
+    name: producao
+    url: $CI_PAGES_URL
+
+# --- Backup mensal do conteudo ----------------------------------------------
+# Criar em CI/CD > Schedules um agendamento mensal com a variavel
+# EXECUTAR_BACKUP = true. Sem essa variavel o agendamento nao faz nada.
+backup:
+  stage: backup
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule" && $EXECUTAR_BACKUP == "true"
+  script:
+    - npm ci
+    - bash ci/backup-dataset.sh
+  artifacts:
+    name: 'backup-sanity-$CI_COMMIT_REF_SLUG'
+    paths:
+      - backups/
+    # Copia de curto prazo dentro do proprio GitLab; a copia definitiva vai
+    # para o armazenamento externo configurado em ci/backup-dataset.sh.
+    expire_in: 6 months

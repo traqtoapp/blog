@@ -1,0 +1,32 @@
+{
+  "name": "traqto-blog",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Blog do Traqto — Next.js (export estatico) + Sanity CMS, publicado no GitLab Pages",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run typecheck && npm run build",
+    "sanity:export": "sanity dataset export",
+    "sanity:import": "sanity dataset import"
+  },
+  "dependencies": {
+    "@portabletext/react": "^8.0.1",
+    "@sanity/client": "^8.2.0",
+    "@sanity/image-url": "^2.1.1",
+    "@sanity/vision": "^6.12.0",
+    "next": "^16.3.4",
+    "next-sanity": "^13.3.4",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "sanity": "^6.12.0",
+    "styled-components": "^6.5.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "typescript": "^5.9.0"
+  }
+}
