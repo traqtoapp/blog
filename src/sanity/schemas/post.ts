@@ -37,7 +37,16 @@ export const post = defineType({
             .slice(0, 96),
       },
       description: 'Endereco final: blog.traqto.com/blog/SEU-SLUG. Evite mudar depois de publicado.',
-      validation: (rule) => rule.required(),
+      // O slug entra cru no sitemap.xml e no feed.xml. Um "&" digitado a mao
+      // deixaria os dois arquivos com XML invalido — o Search Console rejeita o
+      // sitemap inteiro e os leitores de RSS param de ler o feed inteiro, nao
+      // so aquele post.
+      validation: (rule) =>
+        rule.required().custom((value) =>
+          /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value?.current ?? '')
+            ? true
+            : 'Use apenas letras minusculas, numeros e hifens (ex.: prazos-de-escritura).',
+        ),
     }),
     defineField({
       name: 'excerpt',

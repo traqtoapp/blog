@@ -81,6 +81,12 @@ backup:
     name: 'backup-sanity-$CI_COMMIT_REF_SLUG'
     paths:
       - backups/
+    # `always` porque o .tar.gz e gerado ANTES do envio externo: se o upload
+    # falhar (chave expirada, bucket errado, rede), o padrao do GitLab
+    # (on_success) jogaria fora um backup que ja existia, deixando o mes sem
+    # nenhuma copia. Com `always`, o job fica vermelho — para o erro nao passar
+    # despercebido — mas o arquivo sobe do mesmo jeito.
+    when: always
     # Copia de curto prazo dentro do proprio GitLab; a copia definitiva vai
     # para o armazenamento externo configurado em ci/backup-dataset.sh.
     expire_in: 6 months

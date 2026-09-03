@@ -48,7 +48,18 @@ if [ -z "${BACKUP_REMOTE:-}" ]; then
 fi
 
 echo "==> Enviando para ${BACKUP_REMOTE}"
-apt-get update -qq && apt-get install -y -qq --no-install-recommends rclone >/dev/null
+
+# ca-certificates e obrigatorio aqui: a imagem node:22-bookworm-slim remove o
+# repositorio de certificados do sistema, e o rclone (escrito em Go) depende
+# dele. Sem isso todo envio HTTPS falha com "certificate signed by unknown
+# authority" — o npm e a CLI do Sanity nao sofrem porque o Node embute as CAs.
+apt-get update -qq
+apt-get install -y -qq --no-install-recommends ca-certificates rclone
+
 rclone copy "${ARQUIVO}" "${BACKUP_REMOTE}" --stats-one-line
+
+# Confirma no log que o arquivo chegou, em vez de confiar no codigo de saida.
+echo "==> Conteudo atual do destino:"
+rclone lsf "${BACKUP_REMOTE}"
 
 echo "==> Backup enviado com sucesso"

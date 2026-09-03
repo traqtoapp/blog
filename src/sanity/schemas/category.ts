@@ -16,7 +16,13 @@ export const category = defineType({
       title: 'Slug',
       type: 'slug',
       options: { source: 'title', maxLength: 96 },
-      validation: (rule) => rule.required(),
+      // Mesmo motivo do slug do post: ele entra cru no sitemap.xml.
+      validation: (rule) =>
+        rule.required().custom((value) =>
+          /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value?.current ?? '')
+            ? true
+            : 'Use apenas letras minusculas, numeros e hifens (ex.: prazos-de-escritura).',
+        ),
     }),
     defineField({
       name: 'description',

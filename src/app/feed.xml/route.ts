@@ -17,7 +17,10 @@ export async function GET() {
 
   const items = posts
     .map((post) => {
-      const url = absoluteUrl(postPath(post.slug))
+      // A URL tambem passa pelo escape: o schema ja restringe o formato do slug,
+      // mas um post criado antes dessa regra nao deve conseguir invalidar o
+      // feed inteiro.
+      const url = escapeXml(absoluteUrl(postPath(post.slug)))
       return `    <item>
       <title>${escapeXml(post.title)}</title>
       <link>${url}</link>
@@ -32,11 +35,11 @@ export async function GET() {
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>${escapeXml(title)}</title>
-    <link>${siteUrl}</link>
+    <link>${escapeXml(siteUrl)}</link>
     <description>${escapeXml(description)}</description>
     <language>pt-br</language>
     <lastBuildDate>${lastBuildDate}</lastBuildDate>
-    <atom:link href="${absoluteUrl('/feed.xml')}" rel="self" type="application/rss+xml" />
+    <atom:link href="${escapeXml(absoluteUrl('/feed.xml'))}" rel="self" type="application/rss+xml" />
 ${items}
   </channel>
 </rss>

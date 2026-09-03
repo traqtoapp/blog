@@ -49,7 +49,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const title = post.seo?.metaTitle ?? post.title
   const description = post.seo?.metaDescription ?? post.excerpt
   const url = absoluteUrl(postPath(post.slug))
-  const ogImage = urlForOpenGraphImage(post.coverImage)
+  const settings = await getSiteSettings()
+  // A capa e obrigatoria no schema, mas posts antigos (ou criados antes dessa
+  // regra) podem nao ter — ai vale a imagem social padrao do blog.
+  const ogImage = urlForOpenGraphImage(post.coverImage) ?? urlForOpenGraphImage(settings?.ogImage)
 
   return {
     title,
@@ -73,7 +76,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description,
       images: ogImage ? [ogImage] : undefined,
     },
-    robots: post.seo?.noIndex ? { index: false, follow: true } : undefined,
+    // Espalhamento condicional de proposito: passar `robots: undefined` faria o
+    // Next sobrescrever com nada as diretivas herdadas do layout
+    // (max-image-preview:large e max-snippet:-1), justamente nas paginas de
+    // artigo, que sao as que mais se beneficiam delas na busca.
+    ...(post.seo?.noIndex ? { robots: { index: false, follow: true } } : {}),
   }
 }
 

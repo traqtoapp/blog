@@ -4,8 +4,9 @@ import { notFound } from 'next/navigation'
 
 import { JsonLd } from '@/components/JsonLd'
 import { PostCard } from '@/components/PostCard'
-import { getCategory, getCategorySlugs, getPostsByCategory } from '@/lib/content'
+import { getCategory, getCategorySlugs, getPostsByCategory, getSiteSettings } from '@/lib/content'
 import { absoluteUrl, categoryPath, postPath, siteDefaults, siteUrl } from '@/lib/site'
+import { urlForOpenGraphImage } from '@/sanity/image'
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -25,11 +26,15 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params
-  const category = await getCategory(slug)
+  const [category, settings] = await Promise.all([getCategory(slug), getSiteSettings()])
   if (!category) return {}
 
   const description =
     category.description ?? `Artigos sobre ${category.title.toLowerCase()} para corretores imobiliarios.`
+  // Sem isto o link da categoria compartilhado em WhatsApp, LinkedIn ou
+  // Facebook aparece sem imagem: esses leitores usam og:image, que o layout
+  // so define para a home.
+  const ogImage = urlForOpenGraphImage(settings?.ogImage)
 
   return {
     title: category.title,
@@ -41,6 +46,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description,
       url: absoluteUrl(categoryPath(category.slug)),
       locale: siteDefaults.locale,
+      images: ogImage ? [{ url: ogImage, width: 1200, height: 630 }] : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: category.title,
+      description,
+      images: ogImage ? [ogImage] : undefined,
     },
   }
 }
