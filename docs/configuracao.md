@@ -73,9 +73,14 @@ site publicado continua publico, ver passo 3).
    apontar o build para outro projeto ou endereco sem mexer no codigo — util,
    por exemplo, para um ambiente de teste.
 
-   Deixe **Protected desmarcado** em todas — assim o build tambem funciona em
-   branches de teste. Nao marque `Masked` nas variaveis `NEXT_PUBLIC_*`: elas
-   sao publicas por definicao (vao para o HTML) e o mascaramento so atrapalha a
+   No `SANITY_AUTH_TOKEN`, marque **Masked** e tambem **Protected**: ele nao e
+   usado pelo build do site, so pelo job de backup, que roda no agendamento da
+   branch `main` (protegida). Sem Protected, qualquer branch — inclusive uma
+   com o `.gitlab-ci.yml` alterado para imprimir a variavel — recebe o token.
+
+   Nas variaveis `NEXT_PUBLIC_*`, deixe **Protected desmarcado** (assim o build
+   tambem funciona em branches de teste) e **nao** marque `Masked`: elas sao
+   publicas por definicao, vao para o HTML, e o mascaramento so atrapalha a
    leitura dos logs.
 
 ---

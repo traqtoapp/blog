@@ -50,3 +50,19 @@ export function formatDate(value: string | undefined | null): string {
     timeZone: 'America/Sao_Paulo',
   }).format(date)
 }
+
+/**
+ * Bloco `alternates` das paginas internas.
+ *
+ * O Next substitui o objeto `alternates` inteiro na pagina filha: declarar so
+ * `canonical` apagaria o link de descoberta do RSS herdado do layout, e os
+ * leitores de feed deixariam de encontrar o blog a partir de um post.
+ */
+export function alternatesFor(canonical: string, siteTitle: string) {
+  return {
+    canonical,
+    types: {
+      'application/rss+xml': [{ url: '/feed.xml', title: `${siteTitle} — RSS` }],
+    },
+  }
+}

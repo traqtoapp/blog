@@ -30,9 +30,14 @@ export function truncate(input: string, limit: number): string {
   return `${clean.slice(0, clean.lastIndexOf(' ', limit - 1))}…`
 }
 
-/** Escapa texto para uso dentro de XML (sitemap e feed RSS). */
-export function escapeXml(input: string): string {
-  return input
+/**
+ * Escapa texto para uso dentro de XML (sitemap e feed RSS).
+ *
+ * Aceita nulo de proposito: um post sem resumo (importado por NDJSON, por
+ * exemplo) derrubaria o build inteiro com TypeError em vez de gerar o site.
+ */
+export function escapeXml(input: string | null | undefined): string {
+  return (input ?? '')
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')

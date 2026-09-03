@@ -8,7 +8,8 @@
   /* Cor: azul-petroleo sobrio (confianca, mercado imobiliario) + ambar de acao */
   --ink: #0f1c2e;
   --ink-soft: #33455c;
-  --ink-muted: #64748b;
+  /* 5.13:1 sobre --surface-alt: #64748b dava 4.47:1, abaixo do minimo AA. */
+  --ink-muted: #5a6b80;
   --line: #e2e8f0;
   --line-strong: #cbd5e1;
   --surface: #ffffff;

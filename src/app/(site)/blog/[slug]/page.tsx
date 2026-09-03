@@ -10,6 +10,7 @@ import { SanityImage } from '@/components/SanityImage'
 import { getPost, getPostSlugs, getRelatedPosts, getSiteSettings } from '@/lib/content'
 import {
   absoluteUrl,
+  alternatesFor,
   categoryPath,
   formatDate,
   postPath,
@@ -57,7 +58,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title,
     description,
-    alternates: { canonical: url },
+    alternates: alternatesFor(url, settings?.title ?? siteDefaults.title),
     openGraph: {
       type: 'article',
       url,

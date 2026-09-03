@@ -36,6 +36,13 @@ verificar:
   stage: verificar
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    # Com merge request aberto, o push cria dois pipelines (o da branch e o do
+    # MR). Sem esta regra, o mesmo build rodaria duas vezes e consumiria o
+    # dobro da cota mensal de CI. Fica no escopo do job de proposito: um
+    # `workflow:rules` global mal escrito poderia suprimir o pipeline do
+    # webhook do Sanity, que e o mecanismo central do projeto.
+    - if: $CI_COMMIT_BRANCH && $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH && $CI_OPEN_MERGE_REQUESTS
+      when: never
     - if: $CI_COMMIT_BRANCH && $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
   script:
     - npm ci

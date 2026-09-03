@@ -5,7 +5,14 @@ import { notFound } from 'next/navigation'
 import { JsonLd } from '@/components/JsonLd'
 import { PostCard } from '@/components/PostCard'
 import { getCategory, getCategorySlugs, getPostsByCategory, getSiteSettings } from '@/lib/content'
-import { absoluteUrl, categoryPath, postPath, siteDefaults, siteUrl } from '@/lib/site'
+import {
+  absoluteUrl,
+  alternatesFor,
+  categoryPath,
+  postPath,
+  siteDefaults,
+  siteUrl,
+} from '@/lib/site'
 import { urlForOpenGraphImage } from '@/sanity/image'
 
 interface PageProps {
@@ -39,7 +46,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: category.title,
     description,
-    alternates: { canonical: absoluteUrl(categoryPath(category.slug)) },
+    alternates: alternatesFor(
+      absoluteUrl(categoryPath(category.slug)),
+      settings?.title ?? siteDefaults.title,
+    ),
     openGraph: {
       type: 'website',
       title: category.title,
