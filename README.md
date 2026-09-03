@@ -88,6 +88,7 @@ src/
     schemas/           modelo de conteudo (post, autor, categoria, ajustes)
     queries.ts         consultas GROQ
     client.ts          leitura do Content Lake (com fallback vazio)
+content/primeiro-post/  material de importacao do primeiro artigo (uso unico)
 ci/backup-dataset.sh   exportacao mensal do conteudo
 public/_redirects      rota interna do Studio no GitLab Pages
 sanity.config.ts       configuracao do Studio

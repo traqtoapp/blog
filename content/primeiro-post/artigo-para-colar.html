@@ -1,0 +1,50 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>CNM: o que é o Código Nacional de Matrícula e como ele muda o registro de imóveis no Brasil</title>
+<style>
+  body { max-width: 46rem; margin: 3rem auto; padding: 0 1.25rem;
+         font: 17px/1.7 Georgia, serif; color: #17263c; }
+  h2 { font-family: system-ui, sans-serif; font-size: 1.5rem; margin-top: 2.2em; }
+  .aviso { font-family: system-ui, sans-serif; font-size: .9rem; background: #e8f0f8;
+            border-left: 4px solid #0f4c81; padding: 1rem 1.25rem; margin-bottom: 3rem; }
+</style>
+<div class="aviso">
+  Selecione tudo abaixo desta caixa (do primeiro parágrafo até o fim), copie e cole
+  no campo <strong>Corpo do post</strong> do Studio. O Sanity converte títulos,
+  negrito, listas e links automaticamente. Não copie esta caixa.
+</div>
+<p>Se você atua no mercado imobiliário, provavelmente já ouviu falar do CNM — mas talvez ainda não saiba exatamente o que essa sigla representa nem como ela impacta o dia a dia de compra, venda e regularização de imóveis. O Código Nacional de Matrícula (CNM) é uma das mudanças mais relevantes no sistema registral brasileiro dos últimos anos, e entender seu funcionamento é essencial para corretores, advogados, cartórios e proprietários.</p>
+<h2>O que é o CNM</h2>
+<p>O Código Nacional de Matrícula é uma numeração única e nacional atribuída a cada matrícula de imóvel no Brasil. Na prática, funciona como um &quot;CPF do imóvel&quot;: assim como cada pessoa física tem um número que a identifica de forma inequívoca em qualquer lugar do país, cada imóvel passa a ter um código que o identifica de forma exclusiva, independentemente do cartório ou da cidade onde está registrado.</p>
+<p>Antes do CNM, cada Cartório de Registro de Imóveis numerava suas matrículas de forma isolada, seguindo sua própria sequência. Isso significava que poderiam existir, em cartórios diferentes, matrículas com o mesmo número — o que gerava confusão, dificultava a localização de imóveis e abria margem para duplicidades e insegurança jurídica. Com mais de 3.600 cartórios de registro de imóveis espalhados pelo território nacional, a fragmentação da numeração era um problema estrutural do sistema registral brasileiro.</p>
+<p>O CNM resolve esse problema ao criar uma numeração verdadeiramente nacional. Cada matrícula recebe um código que nunca se repete e nunca é reutilizado, mesmo que o imóvel mude de titularidade ou passe por desmembramentos e retificações.</p>
+<h2>Base legal: de onde vem o CNM</h2>
+<p>O CNM não é uma novidade recente — sua origem remonta a 2017, quando a Lei nº 13.465 incluiu o artigo 235-A na Lei de Registros Públicos (Lei nº 6.015/1973), prevendo a criação de um código nacional de identificação de matrículas. Na época, porém, faltava a infraestrutura técnica para colocar a ideia em prática.</p>
+<p>O primeiro passo regulatório veio com o Provimento CNJ nº 89/2019, que instituiu formalmente o CNM e também criou o Sistema de Registro Eletrônico de Imóveis (SREI) e o Operador Nacional do Sistema de Registro Eletrônico de Imóveis (ONR) — a entidade responsável por operacionalizar o sistema.</p>
+<p>A regulamentação definitiva, no entanto, só chegou em 2023. O ONR finalizou a implementação técnica do programa gerador em 24 de abril daquele ano, e no dia seguinte, 25 de abril de 2023, a Corregedoria Nacional de Justiça publicou o Provimento nº 143/2023, que detalha a estrutura, a geração e a validação do código. Esse provimento foi posteriormente consolidado dentro do Código Nacional de Normas da Corregedoria Nacional de Justiça (Provimento nº 149/2023), sem alterar a estrutura técnica do CNM.</p>
+<h2>Como é a estrutura do CNM</h2>
+<p>O código é composto por 16 dígitos, organizados em quatro campos obrigatórios, seguindo o formato <strong>CCCCCC.L.NNNNNNN-DD</strong>. O diagrama no topo desta página ilustra essa divisão — veja o que cada bloco representa:</p>
+<p><strong>Campo 1 — CCCCCC (6 dígitos): Código Nacional da Serventia (CNS).</strong> Identifica o cartório de registro de imóveis onde a matrícula está aberta. Esse código é atribuído pelo próprio CNJ a cada serventia do país, o que permite saber imediatamente em qual ofício de registro o imóvel está matriculado, sem precisar informar cidade, comarca ou estado separadamente.</p>
+<p><strong>Campo 2 — L (1 dígito): indicação do livro.</strong> Um único algarismo indica se a matrícula consta no Livro 2 (Registro Geral), representado pelo número 2, ou no Livro 3 (Registro Auxiliar), representado pelo número 3. Esses livros são os registros oficiais previstos na Lei de Registros Públicos.</p>
+<p><strong>Campo 3 — NNNNNNN (7 dígitos): número de ordem da matrícula.</strong> Corresponde à posição sequencial da matrícula dentro do livro daquele cartório. Em muitos casos, é justamente aqui que a numeração antiga da matrícula é preservada, garantindo continuidade histórica entre o sistema anterior e o novo código nacional.</p>
+<p><strong>Campo 4 — DD (2 dígitos): dígitos verificadores.</strong> Os dois últimos números não identificam nada sobre o imóvel — eles existem para validar a autenticidade do código. São gerados por um algoritmo próprio (Módulo 97 Base 10, conforme a norma ISO 7064:2003), o mesmo tipo de lógica usada para validar números como o IBAN bancário europeu. Isso permite que qualquer sistema detecte rapidamente se um CNM foi digitado errado ou é fraudulento.</p>
+<p>Somando os quatro campos — 6 + 1 + 7 + 2 —, chegamos aos 16 dígitos que compõem o código completo.</p>
+<h2>Como o CNM é usado na prática</h2>
+<p>Na rotina de cartórios, profissionais do mercado imobiliário e cidadãos, o CNM aparece em diferentes momentos:</p>
+<p><strong>Geração do código pelo cartório.</strong> Cada oficial de Registro de Imóveis gera o CNM por meio do Programa Gerador e Validador (PGV-CNM), uma ferramenta gratuita mantida pelo ONR e disponível em <a href="https://cnm.onr.org.br">cnm.onr.org.br</a>. O acesso dos cartórios ao sistema é feito mediante certificado digital ICP-Brasil ou integração via API, o que também abre espaço para que softwares de gestão cartorial se conectem diretamente ao sistema.</p>
+<p><strong>Consulta pública gratuita.</strong> Qualquer pessoa — corretor, comprador, advogado ou curioso — pode consultar o PGV-CNM sem custo e sem necessidade de cadastro prévio, para verificar a validade e a autenticidade de um CNM, além da situação atual da matrícula (se está ativa, encerrada, cancelada ou anulada).</p>
+<p><strong>Solicitação de certidões.</strong> Esse é um dos ganhos práticos mais citados: em vez de informar cartório, comarca, livro e número de matrícula separadamente para pedir uma certidão, basta fornecer o CNM. O próprio código já contém, embutida em sua estrutura, a informação de qual serventia é responsável pelo imóvel.</p>
+<p><strong>Abertura de novas matrículas.</strong> Desde a entrada em vigor do Provimento nº 143/2023, toda matrícula nova aberta em qualquer cartório do país já nasce com o CNM.</p>
+<p><strong>Atualização de matrículas antigas.</strong> Para imóveis com matrícula anterior ao sistema, o código é atribuído progressivamente: sempre que houver um novo registro ou averbação naquela matrícula, o cartório inclui o CNM. Havia também um prazo de transição de até um ano, contado a partir do início de funcionamento do programa gerador, para que todas as matrículas — mesmo as que não tivessem movimentação — recebessem o código.</p>
+<p><strong>Integração com outros sistemas públicos.</strong> O CNM foi desenhado para se conectar a sistemas como o SINTER (Sistema Nacional de Gestão de Informações Territoriais), facilitando o cruzamento de dados entre registro de imóveis, receita federal, prefeituras e outros órgãos que lidam com informações territoriais.</p>
+<h2>Por que o CNM importa para quem trabalha com imóveis</h2>
+<p>Para corretores, incorporadoras, advogados e administradoras, o CNM traz benefícios concretos:</p>
+<ul>
+  <li><strong>Redução de duplicidades e fraudes</strong>: como cada código é único e não reutilizável, fica mais difícil que um mesmo imóvel apareça registrado sob mais de uma matrícula, ou que uma matrícula seja usada indevidamente para mais de um imóvel.</li>
+  <li><strong>Agilidade na due diligence imobiliária</strong>: consultar a situação de um imóvel antes de uma negociação fica mais simples, já que o CNM concentra, em um único dado, a localização exata do registro.</li>
+  <li><strong>Padronização nacional</strong>: sistemas, plataformas e ferramentas voltadas ao setor imobiliário podem usar o CNM como identificador único e confiável em bases de dados, o que facilita a integração entre diferentes fontes de informação registral.</li>
+  <li><strong>Mais transparência para o comprador final</strong>: a possibilidade de qualquer pessoa consultar gratuitamente a validade e a situação de uma matrícula fortalece a segurança jurídica das transações.</li>
+</ul>
+<h2>Considerações finais</h2>
+<p>O Código Nacional de Matrícula representa um movimento de modernização que o setor imobiliário brasileiro esperava há anos — a própria previsão legal já existia desde 2017, mas só ganhou vida prática em 2023, com o desenvolvimento da infraestrutura técnica pelo ONR e a regulamentação definitiva do CNJ. Ao substituir um sistema fragmentado por cartório por uma identificação nacional única, o CNM aproxima o registro de imóveis brasileiro de um padrão mais próximo do que já existe em outras áreas, como o CPF para pessoas físicas ou o CNPJ para empresas.</p>
+<p>Para quem atua no mercado, vale acompanhar como cada cartório está implementando a transição das matrículas antigas e se familiarizar com o formato do código — afinal, o CNM tende a se tornar, cada vez mais, a referência padrão para localizar, validar e consultar informações sobre imóveis em todo o Brasil.</p>
