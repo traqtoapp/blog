@@ -43,15 +43,17 @@ O projeto ja existe: **`p7j9d06t`**, e ele ja e o padrao no codigo
 
 ## Passo 2 — Projeto no GitLab
 
-1. Em [gitlab.com/projects/new](https://gitlab.com/projects/new), crie um
-   **Blank project** chamado `blog` (pode ser privado; o site publicado
-   continua publico — ver passo 3).
-2. Suba este codigo:
+O projeto ja existe: **https://gitlab.com/traqto/traqto-blog** (privado — o
+site publicado continua publico, ver passo 3).
+
+1. Suba o codigo, no seu clone do repositorio:
 
    ```bash
-   git remote add gitlab https://gitlab.com/SEU-USUARIO/blog.git
+   git remote add gitlab https://gitlab.com/traqto/traqto-blog.git
    git push -u gitlab main
    ```
+
+   O push ja dispara o primeiro pipeline sozinho.
 
 3. Abra **Settings > CI/CD > Variables** e cadastre:
 
@@ -78,8 +80,8 @@ O projeto ja existe: **`p7j9d06t`**, e ele ja e o padrao no codigo
 
 1. O push do passo 2 ja dispara o pipeline. Acompanhe em **Build > Pipelines**.
 2. Quando o job `pages` terminar, abra **Deploy > Pages**: aparece o endereco
-   provisorio (`https://SEU-USUARIO.gitlab.io/blog` ou um dominio unico gerado
-   pelo GitLab). O site deve carregar com o aviso de "Nenhum post publicado".
+   provisorio — `https://traqto.gitlab.io/traqto-blog`, ou um dominio unico
+   gerado pelo GitLab se a opcao "Use unique domain" estiver ligada. O site deve carregar com o aviso de "Nenhum post publicado".
 3. Em **Settings > General > Visibility, project features, permissions**,
    confirme que **Pages** esta como **Everyone**. Se ficar em "Only project
    members", o blog exige login do GitLab para ser lido — e nao e indexado pelo
@@ -117,23 +119,22 @@ O objetivo: clicar em **Publish** no Studio e o site se refazer sozinho.
 
 1. No GitLab, va em **Settings > CI/CD > Pipeline trigger tokens > Add trigger**.
    Descricao: `sanity-publish`. Copie o token gerado.
-2. Pegue o **Project ID** numerico do projeto (aparece em **Settings > General**,
-   logo abaixo do nome).
-3. Monte a URL do webhook:
+2. Monte a URL do webhook trocando apenas `SEU_TOKEN`:
 
    ```
-   https://gitlab.com/api/v4/projects/PROJECT_ID/trigger/pipeline?token=TOKEN&ref=main
+   https://gitlab.com/api/v4/projects/traqto%2Ftraqto-blog/trigger/pipeline?token=SEU_TOKEN&ref=main
    ```
 
-   Troque `PROJECT_ID`, `TOKEN` e, se sua branch principal nao for `main`,
-   tambem o `ref`.
+   O `%2F` no meio do caminho e a barra de `traqto/traqto-blog` codificada — a
+   API do GitLab aceita o caminho do projeto no lugar do ID numerico, entao nao
+   e preciso procurar o numero em lugar nenhum.
 
-4. Em sanity.io/manage, abra **API > Webhooks > Create webhook** e preencha:
+3. Em sanity.io/manage, abra **API > Webhooks > Create webhook** e preencha:
 
    | Campo | Valor |
    | ----- | ----- |
    | Name | `Rebuild GitLab Pages` |
-   | URL | a URL do item 3 |
+   | URL | a URL do item 2 |
    | Dataset | `production` |
    | Trigger on | Create, Update, Delete |
    | Filter | `_type in ["post", "category", "author", "siteSettings"]` |
@@ -145,7 +146,7 @@ O objetivo: clicar em **Publish** no Studio e o site se refazer sozinho.
    precisa do aviso. Deixar drafts desligado evita um rebuild a cada rascunho
    salvo.
 
-5. Teste: publique qualquer alteracao no Studio e veja se um pipeline novo
+4. Teste: publique qualquer alteracao no Studio e veja se um pipeline novo
    aparece em **Build > Pipelines** com origem `trigger`.
 
 > **A URL do webhook e um segredo.** Quem tiver o token pode disparar pipelines
