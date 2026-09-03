@@ -48,8 +48,15 @@ verificar:
 pages:
   stage: publicar
   rules:
+    # O agendamento existe so para o backup; ele nao republica o site.
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
+    # Webhook do Sanity (trigger token). Esta regra e o coracao do projeto:
+    # sem ela, publicar um post nao republica o site. Usa CI_COMMIT_REF_NAME,
+    # que existe em qualquer tipo de pipeline, em vez de depender de
+    # CI_COMMIT_BRANCH estar definido no pipeline de trigger.
+    - if: $CI_PIPELINE_SOURCE == "trigger" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+    # Push na branch principal e execucao manual ("Run pipeline").
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
   script:
     - npm ci
