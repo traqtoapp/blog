@@ -36,7 +36,7 @@ export const post = defineType({
             .replace(/\s+/g, '-')
             .slice(0, 96),
       },
-      description: 'Endereco final: blog.traqto.com.br/blog/SEU-SLUG. Evite mudar depois de publicado.',
+      description: 'Endereco final: blog.traqto.com/blog/SEU-SLUG. Evite mudar depois de publicado.',
       validation: (rule) => rule.required(),
     }),
     defineField({

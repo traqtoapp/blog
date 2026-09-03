@@ -9,9 +9,8 @@ Tempo estimado: cerca de uma hora, mais o tempo de propagacao do DNS.
 
 - conta no [Sanity](https://www.sanity.io) (ja criada);
 - conta no [GitLab](https://gitlab.com);
-- acesso ao painel de DNS do dominio `traqto.com.br` (ex.: registro.br);
-- **confirmar que o dominio `traqto.com.br` esta de fato registrado** — o passo
-  4 depende disso.
+- acesso ao painel de DNS do dominio `traqto.com` (ja registrado), no
+  registrador onde ele esta.
 
 ---
 
@@ -28,7 +27,7 @@ Tempo estimado: cerca de uma hora, mais o tempo de propagacao do DNS.
 
    | Origin | Allow credentials |
    | ------ | ----------------- |
-   | `https://blog.traqto.com.br` | sim |
+   | `https://blog.traqto.com` | sim |
    | `http://localhost:3000` | sim (so se for editar pelo computador) |
 
    Sem isso o Studio abre mas nao consegue autenticar.
@@ -58,8 +57,8 @@ Tempo estimado: cerca de uma hora, mais o tempo de propagacao do DNS.
    | ----- | ----- | ---------- |
    | `NEXT_PUBLIC_SANITY_PROJECT_ID` | o Project ID do passo 1 | Visible |
    | `NEXT_PUBLIC_SANITY_DATASET` | `production` | Visible |
-   | `NEXT_PUBLIC_SITE_URL` | `https://blog.traqto.com.br` | Visible |
-   | `NEXT_PUBLIC_TRAQTO_URL` | `https://traqto.com.br` | Visible |
+   | `NEXT_PUBLIC_SITE_URL` | `https://blog.traqto.com` | Visible |
+   | `NEXT_PUBLIC_TRAQTO_URL` | `https://traqto.com` | Visible |
    | `SANITY_AUTH_TOKEN` | o token do passo 1.5 | **Masked**, so o backup usa |
 
    Deixe **Protected desmarcado** em todas — assim o build tambem funciona em
@@ -81,14 +80,14 @@ Tempo estimado: cerca de uma hora, mais o tempo de propagacao do DNS.
    Google.
 
 > O endereco provisorio ja serve para conferir o layout. As URLs internas
-> (canonical, sitemap, RSS) apontam para `blog.traqto.com.br` porque e o
+> (canonical, sitemap, RSS) apontam para `blog.traqto.com` porque e o
 > endereco definitivo configurado em `NEXT_PUBLIC_SITE_URL`.
 
 ---
 
-## Passo 4 — Dominio `blog.traqto.com.br`
+## Passo 4 — Dominio `blog.traqto.com`
 
-1. Em **Deploy > Pages > New domain**, cadastre `blog.traqto.com.br`.
+1. Em **Deploy > Pages > New domain**, cadastre `blog.traqto.com`.
 2. O GitLab mostra dois registros. Crie os dois no painel de DNS do dominio:
 
    | Tipo | Nome | Valor |
@@ -196,14 +195,14 @@ exporta tudo (documentos em NDJSON + imagens) para um `.tar.gz`.
 
 ## Passo 7 — Primeiro post
 
-1. Abra `https://blog.traqto.com.br/studio` e entre com sua conta Sanity.
+1. Abra `https://blog.traqto.com/studio` e entre com sua conta Sanity.
 2. Em **Configuracoes do blog**, preencha nome, descricao e a chamada da home.
 3. Crie uma **Categoria** (ex.: "Proposta de compra") e um **Autor**.
 4. Crie um **Post**. Todos os campos com asterisco sao obrigatorios, incluindo a
    ligacao com a funcionalidade do Traqto — e ela que transforma leitura em
    visita ao produto.
 5. Clique em **Publish**. Em poucos minutos o post esta no ar.
-6. Cadastre `https://blog.traqto.com.br/sitemap.xml` no
+6. Cadastre `https://blog.traqto.com/sitemap.xml` no
    [Google Search Console](https://search.google.com/search-console).
 
 O checklist editorial de cada post esta em [editorial.md](editorial.md).

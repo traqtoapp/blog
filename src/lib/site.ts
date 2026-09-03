@@ -9,9 +9,9 @@ function normalizeUrl(value: string | undefined, fallback: string): string {
   return url.replace(/\/+$/, '')
 }
 
-export const siteUrl = normalizeUrl(process.env.NEXT_PUBLIC_SITE_URL, 'https://blog.traqto.com.br')
+export const siteUrl = normalizeUrl(process.env.NEXT_PUBLIC_SITE_URL, 'https://blog.traqto.com')
 
-export const traqtoUrl = normalizeUrl(process.env.NEXT_PUBLIC_TRAQTO_URL, 'https://traqto.com.br')
+export const traqtoUrl = normalizeUrl(process.env.NEXT_PUBLIC_TRAQTO_URL, 'https://traqto.com')
 
 export const siteDefaults = {
   title: 'Blog do Traqto',

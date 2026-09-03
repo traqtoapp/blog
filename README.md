@@ -1,6 +1,6 @@
 # Blog do Traqto
 
-Blog estatico em `blog.traqto.com.br`, feito para gerar trafego organico e levar
+Blog estatico em `blog.traqto.com`, feito para gerar trafego organico e levar
 corretores imobiliarios ao produto.
 
 - **Conteudo** no [Sanity](https://www.sanity.io) (CMS headless), editado pelo
@@ -18,11 +18,11 @@ Nada precisa rodar no seu computador para publicar um post.
 
 ```
    voce escreve no Studio            webhook do Sanity            pipeline do GitLab
-  blog.traqto.com.br/studio  ───▶  (ao publicar/despublicar) ───▶  npm ci + next build
+  blog.traqto.com/studio  ───▶  (ao publicar/despublicar) ───▶  npm ci + next build
                                                                           │
                                                                           ▼
                                                                   GitLab Pages
-                                                              blog.traqto.com.br
+                                                              blog.traqto.com
 ```
 
 O site inteiro e reconstruido a cada publicacao (leva alguns minutos). Nao ha
@@ -47,7 +47,7 @@ O passo a passo completo esta em **[docs/configuracao.md](docs/configuracao.md)*
 
 1. criar o projeto no Sanity e pegar o `projectId`;
 2. criar o projeto no GitLab e cadastrar as variaveis de CI/CD;
-3. apontar o dominio `blog.traqto.com.br` para o GitLab Pages;
+3. apontar o dominio `blog.traqto.com` para o GitLab Pages;
 4. ligar o webhook do Sanity ao pipeline;
 5. agendar o backup mensal do conteudo.
 
@@ -110,7 +110,7 @@ sanity.config.ts       configuracao do Studio
 | Hospedagem e CI | GitLab Free | R$ 0 (minutos de CI mensais inclusos; um build leva ~2-3 min) |
 | CMS | Sanity Free | R$ 0 dentro das cotas do plano gratuito |
 | Certificado HTTPS | Let's Encrypt via GitLab | R$ 0 |
-| Dominio | registro.br | custo do dominio, ja existente |
+| Dominio | registrador do `traqto.com` | custo do dominio, ja existente |
 
 Confira as cotas atuais em [about.gitlab.com/pricing](https://about.gitlab.com/pricing/)
 e [sanity.io/pricing](https://www.sanity.io/pricing) — elas mudam com o tempo.
