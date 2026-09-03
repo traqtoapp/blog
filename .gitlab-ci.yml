@@ -68,14 +68,14 @@ pages:
   script:
     - npm ci
     - npm run build
-    # O GitLab Pages publica o conteudo do diretorio `public/`. O `public/` do
-    # repositorio (arquivos estaticos do Next) ja foi copiado para dentro de
-    # `out/` durante o build, entao aqui ele so da lugar ao site pronto.
-    - rm -rf public
-    - mv out public
+  # Sintaxe atual do GitLab Pages: `publish` aponta direto para o diretorio
+  # gerado pelo build. Antes era preciso renomear `out/` para `public/`, porque
+  # o Pages so publicava esse nome fixo.
+  pages:
+    publish: out
   artifacts:
     paths:
-      - public
+      - out
     expire_in: 1 week
   environment:
     name: producao
