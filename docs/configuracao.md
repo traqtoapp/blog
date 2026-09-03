@@ -47,13 +47,13 @@ O projeto ja existe: **`p7j9d06t`**, e ele ja e o padrao no codigo
 
 ## Passo 2 — Projeto no GitLab
 
-O projeto ja existe: **https://gitlab.com/traqtoapp/traqto-blog** (privado — o
+O projeto ja existe: **https://gitlab.com/traqtoapp/blog** (privado — o
 site publicado continua publico, ver passo 3).
 
 1. Suba o codigo, no seu clone do repositorio:
 
    ```bash
-   git remote add gitlab https://gitlab.com/traqtoapp/traqto-blog.git
+   git remote add gitlab https://gitlab.com/traqtoapp/blog.git
    git push -u gitlab main
    ```
 
@@ -90,8 +90,8 @@ site publicado continua publico, ver passo 3).
 1. O push do passo 2 ja dispara o pipeline. Acompanhe em **Build > Pipelines**.
 2. Em **Deploy > Pages**, deixe **"Use unique domain" LIGADO**. Isso importa:
    com ele, o site fica na raiz de um subdominio proprio
-   (`https://traqto-blog-xxxx.gitlab.io/`). Desligado, o endereco vira
-   `https://traqto.gitlab.io/traqto-blog/` — um subdiretorio — e o site quebra,
+   (`https://blog-xxxx.gitlab.io/`). Desligado, o endereco vira
+   `https://traqtoapp.gitlab.io/blog/` — um subdiretorio — e o site quebra,
    porque o build gera caminhos absolutos (`/_next/...`, `/blog/...`) contando
    estar na raiz. Fazer funcionar em subdiretorio exigiria `basePath` no
    next.config.ts, que depois teria de ser desfeito ao ligar o dominio proprio.
@@ -137,10 +137,10 @@ O objetivo: clicar em **Publish** no Studio e o site se refazer sozinho.
 2. Monte a URL do webhook trocando apenas `SEU_TOKEN`:
 
    ```
-   https://gitlab.com/api/v4/projects/traqtoapp%2Ftraqto-blog/trigger/pipeline?token=SEU_TOKEN&ref=main
+   https://gitlab.com/api/v4/projects/traqtoapp%2Fblog/trigger/pipeline?token=SEU_TOKEN&ref=main
    ```
 
-   O `%2F` no meio do caminho e a barra de `traqtoapp/traqto-blog` codificada — a
+   O `%2F` no meio do caminho e a barra de `traqtoapp/blog` codificada — a
    API do GitLab aceita o caminho do projeto no lugar do ID numerico, entao nao
    e preciso procurar o numero em lugar nenhum.
 
@@ -193,7 +193,7 @@ exporta tudo (documentos em NDJSON + imagens) para um `.tar.gz`.
 
    | Chave | Exemplo |
    | ----- | ------- |
-   | `BACKUP_REMOTE` | `destino:meu-bucket/traqto-blog` |
+   | `BACKUP_REMOTE` | `destino:meu-bucket/blog-traqto` |
    | `RCLONE_CONFIG_DESTINO_TYPE` | `s3` |
    | `RCLONE_CONFIG_DESTINO_PROVIDER` | `Other` |
    | `RCLONE_CONFIG_DESTINO_ACCESS_KEY_ID` | (masked) |

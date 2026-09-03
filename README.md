@@ -129,7 +129,7 @@ variaveis de ambiente. O unico codigo com identidade do Traqto esta em
   Traqto. Empresa nova, conta nova — e o que evita acoplar a infraestrutura de
   uma empresa a de outra, quando os socios sao diferentes.
 - **Projetos direto no namespace pessoal da conta, sem grupo.** O blog vive em
-  `gitlab.com/traqtoapp/traqto-blog`. Como a conta ja e exclusiva da empresa, um
+  `gitlab.com/traqtoapp/blog`. Como a conta ja e exclusiva da empresa, um
   grupo so acrescentaria um nivel sem separar nada.
 - Ao criar um projeto, confira o campo de namespace na tela de criacao: ele
   precisa apontar para a conta, nao para um grupo.
