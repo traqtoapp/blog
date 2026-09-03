@@ -47,13 +47,13 @@ O projeto ja existe: **`p7j9d06t`**, e ele ja e o padrao no codigo
 
 ## Passo 2 — Projeto no GitLab
 
-O projeto ja existe: **https://gitlab.com/traqto/traqto-blog** (privado — o
+O projeto ja existe: **https://gitlab.com/traqtoapp/traqto-blog** (privado — o
 site publicado continua publico, ver passo 3).
 
 1. Suba o codigo, no seu clone do repositorio:
 
    ```bash
-   git remote add gitlab https://gitlab.com/traqto/traqto-blog.git
+   git remote add gitlab https://gitlab.com/traqtoapp/traqto-blog.git
    git push -u gitlab main
    ```
 
@@ -132,10 +132,10 @@ O objetivo: clicar em **Publish** no Studio e o site se refazer sozinho.
 2. Monte a URL do webhook trocando apenas `SEU_TOKEN`:
 
    ```
-   https://gitlab.com/api/v4/projects/traqto%2Ftraqto-blog/trigger/pipeline?token=SEU_TOKEN&ref=main
+   https://gitlab.com/api/v4/projects/traqtoapp%2Ftraqto-blog/trigger/pipeline?token=SEU_TOKEN&ref=main
    ```
 
-   O `%2F` no meio do caminho e a barra de `traqto/traqto-blog` codificada — a
+   O `%2F` no meio do caminho e a barra de `traqtoapp/traqto-blog` codificada — a
    API do GitLab aceita o caminho do projeto no lugar do ID numerico, entao nao
    e preciso procurar o numero em lugar nenhum.
 
