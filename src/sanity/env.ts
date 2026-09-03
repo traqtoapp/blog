@@ -7,7 +7,16 @@
  * falso e as consultas devolvem listas vazias em vez de quebrar o build.
  */
 
-export const projectId = (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ?? '').trim()
+/**
+ * Projeto Sanity do blog do Traqto. Fica como padrao no codigo (o projectId e
+ * publico — ele vai para o JavaScript do Studio de qualquer jeito) para que
+ * `npm run dev` e o pipeline funcionem sem depender de ninguem lembrar de
+ * cadastrar a variavel. Para replicar este blog em outra empresa, troque aqui
+ * ou defina NEXT_PUBLIC_SANITY_PROJECT_ID no ambiente.
+ */
+const DEFAULT_PROJECT_ID = 'p7j9d06t'
+
+export const projectId = (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || DEFAULT_PROJECT_ID).trim()
 export const dataset = (process.env.NEXT_PUBLIC_SANITY_DATASET ?? 'production').trim()
 export const apiVersion = (process.env.NEXT_PUBLIC_SANITY_API_VERSION ?? '2026-01-01').trim()
 
@@ -18,7 +27,7 @@ export const isSanityConfigured = PROJECT_ID_PATTERN.test(projectId)
 
 if (!isSanityConfigured && process.env.NODE_ENV !== 'test') {
   console.warn(
-    '[sanity] NEXT_PUBLIC_SANITY_PROJECT_ID ausente ou invalido — ' +
-      'o site sera gerado sem conteudo. Preencha .env.local (dev) ou as variaveis de CI/CD (GitLab).',
+    `[sanity] projectId invalido ("${projectId}") — o site sera gerado sem conteudo. ` +
+      'Confira NEXT_PUBLIC_SANITY_PROJECT_ID no .env.local (dev) ou nas variaveis de CI/CD (GitLab).',
   )
 }

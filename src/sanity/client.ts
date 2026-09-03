@@ -31,8 +31,16 @@ export const client: SanityClient | null = isSanityConfigured
   : null
 
 /**
- * Executa uma consulta GROQ devolvendo `fallback` quando o Sanity ainda nao
- * esta configurado. Mantem o build verde num projeto recem-clonado.
+ * Executa uma consulta GROQ.
+ *
+ * Sem Sanity configurado devolve `fallback` — e o que mantem o build verde num
+ * projeto recem-clonado, antes de o CMS existir.
+ *
+ * Com Sanity configurado, um erro de consulta **derruba o build de proposito**.
+ * Engolir a falha aqui seria pior: o pipeline terminaria verde e publicaria um
+ * site vazio por cima do atual, apagando todos os posts do ar por causa de uma
+ * instabilidade passageira. Falhando, o deploy anterior continua no ar e basta
+ * rodar o pipeline de novo.
  */
 export async function sanityFetch<T>(
   query: string,
@@ -41,12 +49,5 @@ export async function sanityFetch<T>(
 ): Promise<T> {
   if (!client) return fallback
 
-  try {
-    return await client.fetch<T>(query, params)
-  } catch (error) {
-    // Um erro de rede no build nao deve derrubar o pipeline inteiro; o job
-    // registra o problema e o site sai com o conteudo que conseguiu buscar.
-    console.error('[sanity] falha ao consultar o Content Lake:', error)
-    return fallback
-  }
+  return client.fetch<T>(query, params)
 }

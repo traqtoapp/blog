@@ -16,14 +16,16 @@ Tempo estimado: cerca de uma hora, mais o tempo de propagacao do DNS.
 
 ## Passo 1 — Projeto no Sanity
 
-1. Entre em [sanity.io/manage](https://www.sanity.io/manage) e clique em
-   **Create new project**.
-2. Nome: `Blog do Traqto`. Dataset: **production**, visibilidade **Public**.
+O projeto ja existe: **`p7j9d06t`**, e ele ja e o padrao no codigo
+(`src/sanity/env.ts`). Falta so conferir duas configuracoes no painel.
+
+1. Entre em [sanity.io/manage](https://www.sanity.io/manage) e abra o projeto.
+2. Em **Datasets**, confirme que existe o dataset **production** e que ele esta
+   como **Public**.
    - Publico e o correto aqui: o conteudo do blog e publico por natureza, e
      assim o build le sem token nenhum. Se preferir dataset privado, crie um
      token de leitura e cadastre-o como `SANITY_API_READ_TOKEN` no passo 2.
-3. Copie o **Project ID** (algo como `a1b2c3d4`) — ele e usado no passo 2.
-4. Ainda em sanity.io/manage, abra **API > CORS origins** e adicione:
+3. Ainda em sanity.io/manage, abra **API > CORS origins** e adicione:
 
    | Origin | Allow credentials |
    | ------ | ----------------- |
@@ -32,7 +34,7 @@ Tempo estimado: cerca de uma hora, mais o tempo de propagacao do DNS.
 
    Sem isso o Studio abre mas nao consegue autenticar.
 
-5. Em **API > Tokens**, clique em **Add API token**:
+4. Em **API > Tokens**, clique em **Add API token**:
    - Nome: `backup-ci`
    - Permissao: **Viewer** (somente leitura)
    - Guarde o token: ele e usado no passo 6 e nao aparece de novo.
@@ -55,11 +57,15 @@ Tempo estimado: cerca de uma hora, mais o tempo de propagacao do DNS.
 
    | Chave | Valor | Observacao |
    | ----- | ----- | ---------- |
-   | `NEXT_PUBLIC_SANITY_PROJECT_ID` | o Project ID do passo 1 | Visible |
-   | `NEXT_PUBLIC_SANITY_DATASET` | `production` | Visible |
-   | `NEXT_PUBLIC_SITE_URL` | `https://blog.traqto.com` | Visible |
-   | `NEXT_PUBLIC_TRAQTO_URL` | `https://traqto.com` | Visible |
-   | `SANITY_AUTH_TOKEN` | o token do passo 1.5 | **Masked**, so o backup usa |
+   | `SANITY_AUTH_TOKEN` | o token do passo 1.4 | **Masked**, so o job de backup usa |
+   | `NEXT_PUBLIC_SANITY_PROJECT_ID` | `p7j9d06t` | opcional — ja e o padrao no codigo |
+   | `NEXT_PUBLIC_SANITY_DATASET` | `production` | opcional — ja e o padrao |
+   | `NEXT_PUBLIC_SITE_URL` | `https://blog.traqto.com` | opcional — ja e o padrao |
+   | `NEXT_PUBLIC_TRAQTO_URL` | `https://traqto.com` | opcional — ja e o padrao |
+
+   Na pratica so o `SANITY_AUTH_TOKEN` e obrigatorio. As demais existem para
+   apontar o build para outro projeto ou endereco sem mexer no codigo — util,
+   por exemplo, para um ambiente de teste.
 
    Deixe **Protected desmarcado** em todas — assim o build tambem funciona em
    branches de teste. Nao marque `Masked` nas variaveis `NEXT_PUBLIC_*`: elas
@@ -182,7 +188,7 @@ exporta tudo (documentos em NDJSON + imagens) para um `.tar.gz`.
    Sem elas, ele avisa no log que a unica copia e o artefato do GitLab.
 
 3. **Teste a restauracao pelo menos uma vez por ano.** Baixe o `.tar.gz` do
-   artefato e rode, com o token do passo 1.5:
+   artefato e rode, com o token do passo 1.4:
 
    ```bash
    SANITY_AUTH_TOKEN=... npx sanity dataset import backup.tar.gz production --replace
@@ -213,7 +219,7 @@ O checklist editorial de cada post esta em [editorial.md](editorial.md).
 
 | Sintoma | Causa provavel | O que fazer |
 | ------- | -------------- | ----------- |
-| Studio abre e fica girando, ou da erro de CORS | origem nao liberada | Passo 1.4: adicionar a URL em CORS origins com "allow credentials" |
+| Studio abre e fica girando, ou da erro de CORS | origem nao liberada | Passo 1.3: adicionar a URL em CORS origins com "allow credentials" |
 | Post publicado nao aparece no site | webhook nao disparou | Ver o log de entregas do webhook em sanity.io/manage e se surgiu pipeline em Build > Pipelines |
 | Pipeline falha em `npm ci` | `package-lock.json` fora de sincronia | Rodar `npm install` local e commitar o lock atualizado |
 | Site pede login do GitLab | Pages access control | Passo 3.3: deixar Pages como "Everyone" |
