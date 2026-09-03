@@ -30,7 +30,7 @@ O projeto ja existe: **`p7j9d06t`**, e ele ja e o padrao no codigo
    | Origin | Allow credentials |
    | ------ | ----------------- |
    | `https://blog.traqto.com` | sim |
-   | o endereco provisorio do GitLab Pages (passo 3) | sim, enquanto usar ele |
+   | `https://blog-d226ff.gitlab.io` (provisorio do GitLab Pages) | sim, enquanto usar ele |
    | `http://localhost:3000` | sim (so se for editar pelo computador) |
 
    Cada endereco de onde voce abrir o Studio precisa estar nesta lista —
@@ -96,7 +96,9 @@ site publicado continua publico, ver passo 3).
    estar na raiz. Fazer funcionar em subdiretorio exigiria `basePath` no
    next.config.ts, que depois teria de ser desfeito ao ligar o dominio proprio.
 3. Quando o job `pages` terminar, abra **Deploy > Pages** e clique no endereco
-   que aparece ali. O site deve carregar com o aviso de "Nenhum post publicado".
+   que aparece ali. Hoje ele e **https://blog-d226ff.gitlab.io** — o sufixo e
+   sorteado pelo GitLab, entao nao da para adivinhar; ele tambem aparece em
+   **Deploy > Environments**, no ambiente `producao`, com botao para abrir. O site deve carregar com o aviso de "Nenhum post publicado".
 4. Em **Settings > General > Visibility, project features, permissions**,
    confirme que **Pages** esta como **Everyone**. Se ficar em "Only project
    members", o blog exige login do GitLab para ser lido — e nao e indexado pelo
