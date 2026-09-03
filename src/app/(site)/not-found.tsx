@@ -1,22 +1,19 @@
-import Link from 'next/link'
+import { NotFoundContent } from '@/components/NotFoundContent'
 
 export const metadata = {
   title: 'Pagina nao encontrada',
   robots: { index: false, follow: true },
 }
 
-export default function NotFound() {
+/**
+ * 404 de dentro do site — usado quando notFound() e chamado numa pagina do
+ * grupo (site), como a rota reservada gerada enquanto o CMS esta vazio. Aqui o
+ * layout do blog (cabecalho e rodape) envolve a pagina.
+ */
+export default function SiteNotFound() {
   return (
     <section className="wrap section">
-      <div className="empty-state">
-        <h2>Pagina nao encontrada</h2>
-        <p>O endereco acessado nao existe ou o artigo mudou de lugar.</p>
-        <p style={{ marginTop: '1.5rem' }}>
-          <Link className="button" href="/">
-            Voltar para a home
-          </Link>
-        </p>
-      </div>
+      <NotFoundContent />
     </section>
   )
 }
