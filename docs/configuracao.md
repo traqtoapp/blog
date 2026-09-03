@@ -30,7 +30,11 @@ O projeto ja existe: **`p7j9d06t`**, e ele ja e o padrao no codigo
    | Origin | Allow credentials |
    | ------ | ----------------- |
    | `https://blog.traqto.com` | sim |
+   | o endereco provisorio do GitLab Pages (passo 3) | sim, enquanto usar ele |
    | `http://localhost:3000` | sim (so se for editar pelo computador) |
+
+   Cada endereco de onde voce abrir o Studio precisa estar nesta lista —
+   inclusive o provisorio do GitLab, se for publicar por ele antes do dominio.
 
    Sem isso o Studio abre mas nao consegue autenticar.
 
@@ -79,10 +83,16 @@ site publicado continua publico, ver passo 3).
 ## Passo 3 — Primeiro deploy
 
 1. O push do passo 2 ja dispara o pipeline. Acompanhe em **Build > Pipelines**.
-2. Quando o job `pages` terminar, abra **Deploy > Pages**: aparece o endereco
-   provisorio — `https://traqto.gitlab.io/traqto-blog`, ou um dominio unico
-   gerado pelo GitLab se a opcao "Use unique domain" estiver ligada. O site deve carregar com o aviso de "Nenhum post publicado".
-3. Em **Settings > General > Visibility, project features, permissions**,
+2. Em **Deploy > Pages**, deixe **"Use unique domain" LIGADO**. Isso importa:
+   com ele, o site fica na raiz de um subdominio proprio
+   (`https://traqto-blog-xxxx.gitlab.io/`). Desligado, o endereco vira
+   `https://traqto.gitlab.io/traqto-blog/` — um subdiretorio — e o site quebra,
+   porque o build gera caminhos absolutos (`/_next/...`, `/blog/...`) contando
+   estar na raiz. Fazer funcionar em subdiretorio exigiria `basePath` no
+   next.config.ts, que depois teria de ser desfeito ao ligar o dominio proprio.
+3. Quando o job `pages` terminar, abra **Deploy > Pages** e clique no endereco
+   que aparece ali. O site deve carregar com o aviso de "Nenhum post publicado".
+4. Em **Settings > General > Visibility, project features, permissions**,
    confirme que **Pages** esta como **Everyone**. Se ficar em "Only project
    members", o blog exige login do GitLab para ser lido — e nao e indexado pelo
    Google.
